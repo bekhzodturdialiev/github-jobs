@@ -2,7 +2,7 @@
   <article class="global-search">
     <form class="global-search-form" action="">
       <label>
-        icon
+        <i class="material-icons global-search-form__icon">work</i>
         <input
           class="global-search-form__text"
           type="text"
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: "GlobalSearch",
+  name: "GlobalSearch"
 };
 </script>
 
@@ -30,19 +30,43 @@ export default {
 
   &-form {
     background: #fff;
-    padding: 5px;
-    margin: 50px 0;
-    border-radius: 5px;
+    padding: 4px;
+    margin: 42px 0;
+    border-radius: 4px;
+    display: flex;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+
+    label {
+      display: flex;
+      align-items: center;
+    }
+
+    &__icon {
+      margin: 15px 9.5px 18px 12px;
+      color: #b9bdcf;
+      font-size: 0.9375em;
+    }
 
     &__text {
-      width: 400px;
+      width: 600px;
+      margin-right: 9.5px;
+      margin-bottom: 3px;
       border: none;
+      font-size: 0.85em;
+      color: #b9bdcf;
+
+      &:placeholder-shown {
+        color: #b9bdcf;
+      }
     }
 
     &__button {
+      background: #1e86ff;
+      color: #fff;
       border: none;
-      padding: 10px 30px;
-      border-radius: 5px;
+      padding: 14px 48px;
+      border-radius: 4px;
+      font-weight: 500;
     }
   }
 }

@@ -6,13 +6,13 @@
 
 <script>
 export default {
-  name: "Header",
+  name: "Header"
 };
 </script>
 
 <style lang="scss" scoped>
 .logo_title {
-  font: 400 24px "Poppins", sans-serif;
+  font: 400 1.5em "Poppins", sans-serif;
   text-transform: capitalize;
   color: #282538;
   margin: 32px 0;
