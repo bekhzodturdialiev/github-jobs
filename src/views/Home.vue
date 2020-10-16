@@ -6,7 +6,7 @@
       <MainSidebar></MainSidebar>
       <section>
         <div class="job-cards">
-          <JobCard></JobCard>
+          <JobCard v-for="job in job.jobs" :key="job.id" :job="job" />
         </div>
         <div class="pagination">
           <div class="pagination__button">
@@ -30,14 +30,45 @@ import GlobalSearch from "@/components/GlobalSearch.vue";
 import MainSidebar from "@/components/MainSidebar.vue";
 import JobCard from "@/components/JobCard.vue";
 
+import store from "@/store";
+import { mapState } from "vuex";
+
 export default {
   name: "Home",
   components: {
     Header,
     GlobalSearch,
     MainSidebar,
-    JobCard
-  }
+    JobCard,
+  },
+  beforeRouteEnter(routeTo, routeFrom, next) {
+    console.log(routeTo);
+    console.log(routeFrom);
+    const currentPage = parseInt(routeTo.query.page) || 1;
+    store
+      .dispatch("job/fetchJobs", {
+        page: currentPage,
+      })
+      .then(() => {
+        routeTo.params.page = currentPage;
+        next();
+      });
+  },
+  beforeRouteUpdate(routeTo, routeFrom, next) {
+    console.log(routeTo);
+    const currentPage = parseInt(routeTo.query.page) || 1;
+    store
+      .dispatch("job/fetchJobs", {
+        page: currentPage,
+      })
+      .then(() => {
+        routeTo.params.page = currentPage;
+        next();
+      });
+  },
+  computed: {
+    ...mapState(["job"]),
+  },
 };
 </script>
 

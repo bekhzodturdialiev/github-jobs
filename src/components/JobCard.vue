@@ -1,28 +1,22 @@
 <template>
-  <div>
-    <div class="job-card">
-      <img
-        class="job-card__image"
-        src="https://jobs.github.com/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaHlNIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--47e113eed4cafcf43cb92c4a41dd359b59567892/Frame%202.png"
-        alt="Company Image"
-      />
-      <div class="job-card__content">
-        <h4 class="job-card__company-name">Kasisto</h4>
-        <h2 class="job-card__position">Front-End Software Engineer</h2>
-        <div class="job-card-info">
-          <div class="job-card__type">
-            <span>Full time</span>
-          </div>
-          <div class="job-card__post">
-            <p class="job-card__city">
-              <i class="material-icons job-card__city-icon">public</i>
-              <span>NY or LA</span>
-            </p>
-            <p class="job-card__post-date">
-              <i class="material-icons job-card__post-date-icon">access_time</i>
-              <span>5 days ago</span>
-            </p>
-          </div>
+  <div class="job-card">
+    <img class="job-card__image" :src="job.company_logo" alt="Company Image" />
+    <div class="job-card__content">
+      <h4 class="job-card__company-name">{{ job.company }}</h4>
+      <h2 class="job-card__position">{{ job.title }}</h2>
+      <div class="job-card-info">
+        <div class="job-card__type">
+          <span>{{ job.type }}</span>
+        </div>
+        <div class="job-card__post">
+          <p class="job-card__city">
+            <i class="material-icons job-card__city-icon">public</i>
+            <span>{{ job.location }}</span>
+          </p>
+          <p class="job-card__post-date">
+            <i class="material-icons job-card__post-date-icon">access_time</i>
+            <span>{{ postedDay }}</span>
+          </p>
         </div>
       </div>
     </div>
@@ -30,7 +24,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "JobCard",
+  props: {
+    job: Object,
+  },
+  computed: {},
+};
 </script>
 
 <style lang="scss">
