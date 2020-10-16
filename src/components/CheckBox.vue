@@ -16,6 +16,7 @@ export default {
 .search-criteria {
   display: flex;
   align-items: center;
+  margin: 0 0 16px 0;
   &__icon {
     font-size: 1em;
     display: inline-block;

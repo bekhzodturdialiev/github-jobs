@@ -2,21 +2,30 @@
   <div class="home">
     <Header></Header>
     <GlobalSearch></GlobalSearch>
-    <CheckBox>Full stack</CheckBox>
+    <main class="main">
+      <MainSidebar></MainSidebar>
+    </main>
   </div>
 </template>
 
 <script>
 import Header from "@/components/Header.vue";
 import GlobalSearch from "@/components/GlobalSearch.vue";
-import CheckBox from "@/components/CheckBox.vue";
+import MainSidebar from "@/components/MainSidebar.vue";
 
 export default {
   name: "Home",
   components: {
     Header,
     GlobalSearch,
-    CheckBox
+    MainSidebar
   }
 };
 </script>
+
+<style lang="scss">
+.main {
+  margin: 42px 0 151px;
+  display: flex;
+}
+</style>

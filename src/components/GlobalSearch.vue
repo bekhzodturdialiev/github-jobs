@@ -55,7 +55,7 @@ export default {
       font-size: 0.85em;
       color: #b9bdcf;
 
-      &:placeholder-shown {
+      &::placeholder {
         color: #b9bdcf;
       }
     }
