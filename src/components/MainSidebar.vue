@@ -31,6 +31,7 @@ export default {
 
 <style lang="scss">
 .main-sidebar {
+  width: 100%;
 }
 .sidebar-title {
   font: 700 0.875em "Poppins";
@@ -41,6 +42,7 @@ export default {
 .sidebar-search {
   background: #ffffff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
   margin: 0 0 25px 0;
 
   label {
