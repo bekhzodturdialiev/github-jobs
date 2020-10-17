@@ -1,6 +1,10 @@
 <template>
   <aside class="main-sidebar">
-    <CheckBox v-model="type" @change="processType" value="Full stack"
+    <CheckBox
+      v-model="type"
+      @change="processType"
+      value="Full stack"
+      name="type"
       >Full stack</CheckBox
     >
     <h2 class="sidebar-title">Location</h2>
@@ -16,10 +20,22 @@
         />
       </label>
     </form>
-    <CheckBox>London</CheckBox>
-    <CheckBox>Amsterdam</CheckBox>
-    <CheckBox>New York</CheckBox>
-    <CheckBox>Berlin</CheckBox>
+    <CheckBox v-model="city" value="London" name="city" @change="processCity"
+      >London</CheckBox
+    >
+    <CheckBox
+      v-model="city"
+      value="Amsterdam"
+      name="city"
+      @checked="processCity"
+      >Amsterdam</CheckBox
+    >
+    <CheckBox v-model="city" value="New York" name="city" @checked="processCity"
+      >New York</CheckBox
+    >
+    <CheckBox v-model="city" value="Berlin" name="city" @checked="processCity"
+      >Berlin</CheckBox
+    >
   </aside>
 </template>
 
@@ -31,27 +47,34 @@ import store from "@/store";
 export default {
   name: "MainSidebar",
   components: {
-    CheckBox
+    CheckBox,
   },
   data: function() {
     return {
       params: {},
+      city: "",
       listQuery: "",
-      type: ""
+      type: "",
     };
   },
   methods: {
     processSearch() {
       store.dispatch("job/fetchJobs", {
-        params: this.params
+        params: this.params,
       });
     },
     processType() {
       store.dispatch("job/fetchJobs", {
-        params: this.params
+        params: this.params,
       });
-    }
-  }
+    },
+    processCity() {
+      store.dispatch("job/fetchJobs", {
+        ...this.params,
+        location: this.city,
+      });
+    },
+  },
 };
 </script>
 

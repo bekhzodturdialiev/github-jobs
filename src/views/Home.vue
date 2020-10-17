@@ -30,7 +30,7 @@ const fetchData = (routeTo, next) => {
   params.page = currentPage;
   store
     .dispatch("job/fetchJobs", {
-      params: params
+      params: params,
     })
     .then(() => {
       routeTo.params.page = currentPage;
@@ -43,15 +43,15 @@ export default {
   props: {
     page: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
     Header,
     GlobalSearch,
     MainSidebar,
     JobCard,
-    Pagination
+    Pagination,
   },
   beforeRouteEnter(routeTo, routeFrom, next) {
     fetchData(routeTo, next);
@@ -60,8 +60,8 @@ export default {
     fetchData(routeTo, next);
   },
   computed: {
-    ...mapState(["job"])
-  }
+    ...mapState(["job"]),
+  },
 };
 </script>
 
