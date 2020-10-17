@@ -1,22 +1,47 @@
 <template>
   <article class="global-search">
-    <form class="global-search-form" action="">
+    <form class="global-search-form">
       <label>
         <i class="material-icons global-search-form__icon">work</i>
         <input
           class="global-search-form__text"
           type="text"
           placeholder="Title, companies, expertise or benefits"
+          v-model="searchQuery"
         />
       </label>
-      <button class="global-search-form__button">Search</button>
+      <button
+        class="global-search-form__button"
+        type="button"
+        @click="processSearch"
+      >
+        Search
+      </button>
     </form>
   </article>
 </template>
 
 <script>
+import store from "@/store";
+
 export default {
-  name: "GlobalSearch"
+  name: "GlobalSearch",
+  data: function() {
+    return {
+      searchQuery: ""
+    };
+  },
+  methods: {
+    processSearch() {
+      store.dispatch("job/fetchJobs", {
+        params: {
+          company: this.searchQuery,
+          title: this.searchQuery,
+          description: this.searchQuery
+        }
+      });
+    }
+  }
 };
 </script>
 
@@ -65,6 +90,7 @@ export default {
       background: #1e86ff;
       color: #fff;
       border: none;
+      outline: none;
       padding: 14px 48px;
       border-radius: 4px;
       font-weight: 500;

@@ -1,6 +1,14 @@
 <template>
   <div class="job-card">
-    <img class="job-card__image" :src="companyLogo" alt="Company Image" />
+    <img
+      class="job-card__image"
+      :src="
+        job.company_logo ||
+          'http://www.noemiaalugueis.com.br/assets/images/no-image.png'
+      "
+      alt="Company
+    Image"
+    />
     <div class="job-card__content">
       <h4 class="job-card__company-name">{{ job.company }}</h4>
       <h2 class="job-card__position">{{ job.title }}</h2>
@@ -38,15 +46,6 @@ export default {
       })
     }
   },
-  data() {
-    return {
-      defaultOptions: {
-        test: "value",
-        company_logo:
-          "http://www.noemiaalugueis.com.br/assets/images/no-image.png"
-      }
-    };
-  },
   computed: {
     postedDay() {
       const postCreated = new Date(this.job.created_at);
@@ -56,11 +55,6 @@ export default {
         return "today";
       }
       return daysPast + (daysPast === 1 ? " day ago" : " days ago");
-    },
-    companyLogo() {
-      // return { ...this.defaultOptions, ...this.job };
-      if (!this.job.company_logo) return this.defaultOptions.company_logo;
-      return this.job.company_logo;
     }
   }
 };

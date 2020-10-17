@@ -1,6 +1,8 @@
 <template>
   <aside class="main-sidebar">
-    <CheckBox>Full stack</CheckBox>
+    <CheckBox v-model="type" @change="processType" value="Full stack"
+      >Full stack</CheckBox
+    >
     <h2 class="sidebar-title">Location</h2>
     <form class="sidebar-search">
       <label>
@@ -9,6 +11,8 @@
           class="sidebar-search__text"
           type="text"
           placeholder="City, state, zip code or country"
+          v-model="listQuery"
+          @input="processSearch"
         />
       </label>
     </form>
@@ -21,10 +25,32 @@
 
 <script>
 import CheckBox from "@/components/CheckBox.vue";
+
+import store from "@/store";
+
 export default {
   name: "MainSidebar",
   components: {
     CheckBox
+  },
+  data: function() {
+    return {
+      params: {},
+      listQuery: "",
+      type: ""
+    };
+  },
+  methods: {
+    processSearch() {
+      store.dispatch("job/fetchJobs", {
+        params: this.params
+      });
+    },
+    processType() {
+      store.dispatch("job/fetchJobs", {
+        params: this.params
+      });
+    }
   }
 };
 </script>

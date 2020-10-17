@@ -68,6 +68,9 @@ export default {
       });
   },
   computed: {
+    hasNextPage() {
+      return this.job.length === 50 * this.event.perPage;
+    },
     ...mapState(["job"])
   }
 };
