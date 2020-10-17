@@ -6,13 +6,14 @@ export const state = {
   jobs: [],
   jobsTotal: 0,
   job: {},
+  hasNext: false,
 };
 export const mutations = {
   SET_JOBS(state, jobs) {
     state.jobs = jobs;
   },
-  SET_JOBS_TOTAL(state, total) {
-    state.jobsTotal = total;
+  SET_HAS_NEXT(state, hasNext) {
+    state.hasNext = hasNext;
   },
   SET_JOB(state, job) {
     state.job = job;
@@ -23,8 +24,10 @@ export const actions = {
     return JobService.getJobs(params)
       .then((response) => {
         commit("SET_JOBS", response.data);
-        console.log(params.page);
-        commit("SET_JOBS_TOTAL", response.headers["x-total-count"]);
+        params.page = params.page + 1;
+        JobService.getJobs(params).then((response) => {
+          commit("SET_HAS_NEXT", response.data.length);
+        });
       })
       .catch((error) => {
         alert("There was a problem fetching jobs: " + error.message);
@@ -51,5 +54,8 @@ export const actions = {
 export const getters = {
   getJobById: (state) => (id) => {
     return state.jobs.find((job) => job.id === id);
+  },
+  hasNext: (state) => {
+    return state.hasNext;
   },
 };
