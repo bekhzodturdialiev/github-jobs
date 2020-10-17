@@ -39,15 +39,17 @@ export default {
     Header,
     GlobalSearch,
     MainSidebar,
-    JobCard,
+    JobCard
   },
   beforeRouteEnter(routeTo, routeFrom, next) {
     console.log(routeTo);
-    console.log(routeFrom);
+
+    const params = routeTo.query;
     const currentPage = parseInt(routeTo.query.page) || 1;
+    params.page = currentPage;
     store
       .dispatch("job/fetchJobs", {
-        page: currentPage,
+        params: params
       })
       .then(() => {
         routeTo.params.page = currentPage;
@@ -55,11 +57,10 @@ export default {
       });
   },
   beforeRouteUpdate(routeTo, routeFrom, next) {
-    console.log(routeTo);
     const currentPage = parseInt(routeTo.query.page) || 1;
     store
       .dispatch("job/fetchJobs", {
-        page: currentPage,
+        page: currentPage
       })
       .then(() => {
         routeTo.params.page = currentPage;
@@ -67,8 +68,8 @@ export default {
       });
   },
   computed: {
-    ...mapState(["job"]),
-  },
+    ...mapState(["job"])
+  }
 };
 </script>
 
@@ -101,13 +102,19 @@ export default {
     &:not(:first-child) {
       margin: 0 0 0 12px;
     }
-    &-active {
-      color: #fff;
-      background: #1e86ff;
-    }
+
     &:hover {
       color: #1e86ff;
       border: 1px solid #1e86ff;
+    }
+
+    &-active {
+      color: #fff;
+      background: #1e86ff;
+      &:hover {
+        color: #fff;
+        background: #1e86ff;
+      }
     }
   }
 }

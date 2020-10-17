@@ -60,6 +60,7 @@ export default {
     border: none;
     outline: none;
     margin: 0 16px 0 0;
+    width: 100%;
 
     &::placeholder {
       color: #b9bdcf;

@@ -1,6 +1,6 @@
 <template>
   <div class="job-card">
-    <img class="job-card__image" :src="job.company_logo" alt="Company Image" />
+    <img class="job-card__image" :src="companyLogo" alt="Company Image" />
     <div class="job-card__content">
       <h4 class="job-card__company-name">{{ job.company }}</h4>
       <h2 class="job-card__position">{{ job.title }}</h2>
@@ -24,12 +24,45 @@
 </template>
 
 <script>
+const now = new Date();
+
 export default {
   name: "JobCard",
   props: {
-    job: Object,
+    job: {
+      type: Object,
+      default: () => ({
+        company_logo: "test",
+        company: "text",
+        test: "Text tEtxt"
+      })
+    }
   },
-  computed: {},
+  data() {
+    return {
+      defaultOptions: {
+        test: "value",
+        company_logo:
+          "http://www.noemiaalugueis.com.br/assets/images/no-image.png"
+      }
+    };
+  },
+  computed: {
+    postedDay() {
+      const postCreated = new Date(this.job.created_at);
+      const diff = now - postCreated;
+      const daysPast = Math.ceil(diff / (1000 * 3600 * 24));
+      if (!daysPast) {
+        return "today";
+      }
+      return daysPast + (daysPast === 1 ? " day ago" : " days ago");
+    },
+    companyLogo() {
+      // return { ...this.defaultOptions, ...this.job };
+      if (!this.job.company_logo) return this.defaultOptions.company_logo;
+      return this.job.company_logo;
+    }
+  }
 };
 </script>
 

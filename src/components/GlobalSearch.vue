@@ -52,6 +52,7 @@ export default {
       margin-right: 9.5px;
       margin-bottom: 3px;
       border: none;
+      outline: none;
       font-size: 0.85em;
       color: #b9bdcf;
 

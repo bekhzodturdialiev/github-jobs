@@ -19,10 +19,11 @@ export const mutations = {
   },
 };
 export const actions = {
-  fetchJobs: function({ commit }, { page }) {
-    return JobService.getJobs(page)
+  fetchJobs: function({ commit }, { params = {} }) {
+    return JobService.getJobs(params)
       .then((response) => {
         commit("SET_JOBS", response.data);
+        console.log(params.page);
         commit("SET_JOBS_TOTAL", response.headers["x-total-count"]);
       })
       .catch((error) => {

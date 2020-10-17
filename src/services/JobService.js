@@ -10,8 +10,13 @@ const apiClient = axios.create({
 });
 
 export default {
-  getJobs: function(page) {
-    return apiClient.get("/positions.json?page=" + page);
+  getJobs: function(params) {
+    return apiClient.get("/positions.json", {
+      params: {
+        markdown: true,
+        ...params,
+      },
+    });
   },
   getJobById: function(id) {
     // , markdown = false
