@@ -24,6 +24,20 @@ import Pagination from "@/components/Pagination.vue";
 import store from "@/store";
 import { mapState } from "vuex";
 
+const fetchData = (routeTo, next) => {
+  const params = routeTo.query;
+  const currentPage = parseInt(routeTo.query.page) || 1;
+  params.page = currentPage;
+  store
+    .dispatch("job/fetchJobs", {
+      params: params
+    })
+    .then(() => {
+      routeTo.params.page = currentPage;
+      next();
+    });
+};
+
 export default {
   name: "Home",
   props: {
@@ -40,30 +54,10 @@ export default {
     Pagination
   },
   beforeRouteEnter(routeTo, routeFrom, next) {
-    const params = routeTo.query;
-    const currentPage = parseInt(routeTo.query.page) || 1;
-    params.page = currentPage;
-    store
-      .dispatch("job/fetchJobs", {
-        params: params
-      })
-      .then(() => {
-        routeTo.params.page = currentPage;
-        next();
-      });
+    fetchData(routeTo, next);
   },
   beforeRouteUpdate(routeTo, routeFrom, next) {
-    const params = routeTo.query;
-    const currentPage = parseInt(routeTo.query.page) || 1;
-    params.page = currentPage;
-    store
-      .dispatch("job/fetchJobs", {
-        page: currentPage
-      })
-      .then(() => {
-        routeTo.params.page = currentPage;
-        next();
-      });
+    fetchData(routeTo, next);
   },
   computed: {
     ...mapState(["job"])
