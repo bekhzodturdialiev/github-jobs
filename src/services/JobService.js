@@ -6,16 +6,16 @@ const apiClient = axios.create({
   withCredentials: false,
   headers: {
     Accept: "application/json",
-    "Content-type": "application/json",
-  },
+    "Content-type": "application/json"
+  }
 });
 
-apiClient.interceptors.request.use((request) => {
+apiClient.interceptors.request.use(request => {
   nProgress.start();
   return request;
 });
 
-apiClient.interceptors.response.use((response) => {
+apiClient.interceptors.response.use(response => {
   nProgress.done();
   return response;
 });
@@ -24,15 +24,19 @@ export default {
   getJobs: function(params) {
     return apiClient.get("/positions.json", {
       params: {
-        markdown: true,
-        ...params,
-      },
+        markdown: false,
+        ...params
+      }
     });
   },
   getJobById: function(id) {
     // , markdown = false
     // markdown = markdown ? "?markdown=true" : "";
     // + markdown
-    return apiClient.get("/positions/" + id + ".json");
-  },
+    return apiClient.get("/positions/" + id + ".json", {
+      params: {
+        markdown: false
+      }
+    });
+  }
 };

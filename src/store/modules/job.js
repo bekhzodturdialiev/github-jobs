@@ -6,7 +6,8 @@ export const state = {
   jobs: [],
   jobsTotal: 0,
   job: {},
-  hasNext: false,
+  hasNext: 0,
+  page: 1
 };
 export const mutations = {
   SET_JOBS(state, jobs) {
@@ -18,18 +19,25 @@ export const mutations = {
   SET_JOB(state, job) {
     state.job = job;
   },
+  SET_PAGE(state, page) {
+    state.page = page;
+  }
 };
 export const actions = {
-  fetchJobs: function({ commit }, { params = {} }) {
+  fetchJobs: function({ commit, state }, { params = {} }) {
+    if (params.page === state.page && state.jobs.length > 0) {
+      return state.jobs;
+    }
     return JobService.getJobs(params)
-      .then((response) => {
+      .then(response => {
         commit("SET_JOBS", response.data);
+        commit("SET_PAGE", params.page);
         params.page = params.page + 1;
-        JobService.getJobs(params).then((response) => {
+        JobService.getJobs(params).then(response => {
           commit("SET_HAS_NEXT", response.data.length);
         });
       })
-      .catch((error) => {
+      .catch(error => {
         alert("There was a problem fetching jobs: " + error.message);
       });
   },
@@ -39,23 +47,23 @@ export const actions = {
       commit("SET_JOB", job);
       return job;
     } else {
-      return JobService.getEventById(id)
-        .then((response) => {
-          commit("SET_EVENT", response.data);
+      return JobService.getJobById(id)
+        .then(response => {
+          commit("SET_JOB", response.data);
           return response.data;
         })
-        .catch((error) => {
-          alert("There was a problem fetching event: " + error.message);
+        .catch(error => {
+          alert("There was a problem fetching job: " + error.message);
         });
     }
-  },
+  }
 };
 
 export const getters = {
-  getJobById: (state) => (id) => {
-    return state.jobs.find((job) => job.id === id);
+  getJobById: state => id => {
+    return state.jobs.find(job => job.id === id);
   },
-  hasNext: (state) => {
-    return state.hasNext;
-  },
+  hasNext: state => {
+    return state.hasNext !== 0;
+  }
 };

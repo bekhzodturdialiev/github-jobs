@@ -1,33 +1,39 @@
 <template>
-  <div class="job-card">
-    <img
-      class="job-card__image"
-      :src="
-        job.company_logo ||
-          'http://www.noemiaalugueis.com.br/assets/images/no-image.png'
-      "
-      alt="Company
+  <div>
+    <router-link :to="{ name: 'job-show', params: { id: job.id } }">
+      <div class="job-card">
+        <img
+          class="job-card__image"
+          :src="
+            job.company_logo ||
+              'http://www.noemiaalugueis.com.br/assets/images/no-image.png'
+          "
+          alt="Company
     Image"
-    />
-    <div class="job-card__content">
-      <h4 class="job-card__company-name">{{ job.company }}</h4>
-      <h2 class="job-card__position">{{ job.title }}</h2>
-      <div class="job-card-info">
-        <div class="job-card__type">
-          <span>{{ job.type }}</span>
-        </div>
-        <div class="job-card__post">
-          <p class="job-card__city">
-            <i class="material-icons job-card__city-icon">public</i>
-            <span>{{ job.location }}</span>
-          </p>
-          <p class="job-card__post-date">
-            <i class="material-icons job-card__post-date-icon">access_time</i>
-            <span>{{ postedDay }}</span>
-          </p>
+        />
+        <div class="job-card__content">
+          <h4 class="job-card__company-name">{{ job.company }}</h4>
+          <h2 class="job-card__position">{{ job.title }}</h2>
+          <div class="job-card-info">
+            <div class="job-card__type">
+              <span>{{ job.type }}</span>
+            </div>
+            <div class="job-card__post">
+              <p class="job-card__city">
+                <i class="material-icons job-card__city-icon">public</i>
+                <span>{{ job.location }}</span>
+              </p>
+              <p class="job-card__post-date">
+                <i class="material-icons job-card__post-date-icon"
+                  >access_time</i
+                >
+                <span>{{ postedDay }}</span>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -61,6 +67,10 @@ export default {
 </script>
 
 <style lang="scss">
+a {
+  color: inherit;
+  text-decoration: none;
+}
 .job-card {
   background: #ffffff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);

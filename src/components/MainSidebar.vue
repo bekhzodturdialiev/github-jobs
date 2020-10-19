@@ -47,34 +47,34 @@ import store from "@/store";
 export default {
   name: "MainSidebar",
   components: {
-    CheckBox,
+    CheckBox
   },
   data: function() {
     return {
       params: {},
       city: "",
       listQuery: "",
-      type: "",
+      type: ""
     };
   },
   methods: {
     processSearch() {
       store.dispatch("job/fetchJobs", {
-        params: this.params,
+        params: this.params
       });
     },
     processType() {
       store.dispatch("job/fetchJobs", {
-        params: this.params,
+        params: this.params
       });
     },
     processCity() {
       store.dispatch("job/fetchJobs", {
         ...this.params,
-        location: this.city,
+        location: this.city
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
