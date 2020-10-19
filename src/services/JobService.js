@@ -2,7 +2,8 @@ import axios from "axios";
 import nProgress from "nprogress";
 
 const apiClient = axios.create({
-  baseURL: "https://cors-anywhere.herokuapp.com/https://jobs.github.com",
+  // baseURL: "https://cors-anywhere.herokuapp.com/https://jobs.github.com",
+  baseURL: "https://jobs.github.com",
   withCredentials: false,
   headers: {
     Accept: "application/json",
