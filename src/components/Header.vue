@@ -16,6 +16,9 @@ export default {
   text-transform: capitalize;
   color: #282538;
   margin: 32px 0;
+  @media (max-width: 767px) {
+    margin: 12px 0 32px;
+  }
 
   &-bold {
     font-weight: 700;

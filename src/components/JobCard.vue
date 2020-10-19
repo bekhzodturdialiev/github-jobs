@@ -80,7 +80,13 @@ a {
   padding: 12px;
   font-size: 0.75em;
   width: calc(100% - 24px);
+
   margin: 0 0 32px 0;
+
+  @media (max-width: 767px) {
+    margin: 0 0 23px 0;
+    align-items: start;
+  }
 
   &__image {
     width: 90px;
@@ -108,6 +114,11 @@ a {
     justify-content: space-between;
     color: #b9bdcf;
     margin: 12px 0 0 0;
+
+    @media (max-width: 767px) {
+      flex-direction: column;
+      align-items: start;
+    }
   }
 
   &__type {
@@ -121,7 +132,7 @@ a {
 
   &__city {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     margin-right: 28.5px;
     &-icon {
       font-size: 1.25em;
@@ -133,7 +144,7 @@ a {
     display: flex;
     &-date {
       display: flex;
-      align-items: flex-end;
+      align-items: center;
 
       &-icon {
         font-size: 1.25em;

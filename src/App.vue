@@ -8,6 +8,7 @@
 
 <style lang="scss">
 .wrapper {
+  width: 100%;
   max-width: 1201px;
   margin: 0 auto;
 }

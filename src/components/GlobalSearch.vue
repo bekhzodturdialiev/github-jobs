@@ -35,9 +35,7 @@ export default {
     processSearch() {
       store.dispatch("job/fetchJobs", {
         params: {
-          company: this.searchQuery,
-          title: this.searchQuery,
-          description: this.searchQuery
+          search: this.searchQuery
         }
       });
     }
@@ -83,6 +81,27 @@ export default {
 
       &::placeholder {
         color: #b9bdcf;
+      }
+    }
+
+    @media (max-width: 860px) {
+      &__text {
+        width: 400px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      &__text {
+        width: 300px;
+      }
+    }
+
+    @media (max-width: 550px) {
+      & {
+        flex-direction: column;
+      }
+      &__text {
+        width: 220px;
       }
     }
 

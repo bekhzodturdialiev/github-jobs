@@ -37,7 +37,6 @@
         </div>
       </section>
     </main>
-    {{ job.company }}
   </div>
 </template>
 
@@ -71,11 +70,19 @@ export default {
 </script>
 
 <style lang="scss">
+.job-show {
+  margin: 0 15px;
+}
 .job-block-image {
   width: 42px;
 }
 .job-block {
   margin-left: 78px;
+  @media (max-width: 767px) {
+    & {
+      margin-left: 0;
+    }
+  }
 }
 .job-description {
   color: #334680;
@@ -84,6 +91,12 @@ export default {
 .job-header {
   display: flex;
   align-items: center;
+  @media (max-width: 767px) {
+    & {
+      flex-direction: column;
+      align-items: start;
+    }
+  }
 }
 .job-title {
   margin: 0;
@@ -101,6 +114,12 @@ export default {
   color: #334680;
   font-weight: 700;
   font-size: 0.75em;
+
+  @media (max-width: 767px) {
+    & {
+      margin: 10px 0 0 0;
+    }
+  }
 }
 .job-post-date {
   margin: 10px 0;
@@ -114,5 +133,10 @@ export default {
   margin: 32px 0;
   background: transparent;
   box-shadow: none;
+  @media (max-width: 767px) {
+    & {
+      padding: 0;
+    }
+  }
 }
 </style>

@@ -1,10 +1,6 @@
 <template>
   <aside class="main-sidebar">
-    <CheckBox
-      v-model="type"
-      @change="processType"
-      value="Full stack"
-      name="type"
+    <CheckBox checkvalue="full_time" type="checkbox" name="type"
       >Full stack</CheckBox
     >
     <h2 class="sidebar-title">Location</h2>
@@ -15,27 +11,19 @@
           class="sidebar-search__text"
           type="text"
           placeholder="City, state, zip code or country"
-          v-model="listQuery"
+          v-model="params.location"
           @input="processSearch"
         />
       </label>
     </form>
-    <CheckBox v-model="city" value="London" name="city" @change="processCity"
-      >London</CheckBox
-    >
-    <CheckBox
-      v-model="city"
-      value="Amsterdam"
-      name="city"
-      @checked="processCity"
+    <CheckBox checkvalue="London" type="radio" name="location">London</CheckBox>
+    <CheckBox checkvalue="Amsterdam" type="radio" name="location"
       >Amsterdam</CheckBox
     >
-    <CheckBox v-model="city" value="New York" name="city" @checked="processCity"
+    <CheckBox checkvalue="New York" type="radio" name="location"
       >New York</CheckBox
     >
-    <CheckBox v-model="city" value="Berlin" name="city" @checked="processCity"
-      >Berlin</CheckBox
-    >
+    <CheckBox checkvalue="Berlin" type="radio" name="location">Berlin</CheckBox>
   </aside>
 </template>
 
@@ -51,28 +39,20 @@ export default {
   },
   data: function() {
     return {
-      params: {},
-      city: "",
-      listQuery: "",
-      type: ""
+      params: {}
     };
   },
   methods: {
     processSearch() {
-      store.dispatch("job/fetchJobs", {
-        params: this.params
-      });
-    },
-    processType() {
-      store.dispatch("job/fetchJobs", {
-        params: this.params
-      });
-    },
-    processCity() {
-      store.dispatch("job/fetchJobs", {
-        ...this.params,
-        location: this.city
-      });
+      if (this.timer) {
+        clearTimeout(this.timer);
+        this.timer = null;
+      }
+      this.timer = setTimeout(() => {
+        store.dispatch("job/fetchJobs", {
+          params: this.params
+        });
+      }, 800);
     }
   }
 };
@@ -80,7 +60,12 @@ export default {
 
 <style lang="scss">
 .main-sidebar {
-  width: 100%;
+  width: 25%;
+  @media (max-width: 767px) {
+    & {
+      width: 100%;
+    }
+  }
 }
 .sidebar-title {
   font: 700 0.875em "Poppins";

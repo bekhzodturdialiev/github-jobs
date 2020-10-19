@@ -6,8 +6,10 @@ export const state = {
   jobs: [],
   jobsTotal: 0,
   job: {},
-  hasNext: 0,
-  page: 1
+  hasNext: false,
+  page: 1,
+  city: "",
+  fullOnly: false
 };
 export const mutations = {
   SET_JOBS(state, jobs) {
@@ -21,21 +23,30 @@ export const mutations = {
   },
   SET_PAGE(state, page) {
     state.page = page;
+  },
+  SET_FULL_ONLY(state, isFull) {
+    state.fullOnly = isFull;
   }
 };
 export const actions = {
   fetchJobs: function({ commit, state }, { params = {} }) {
-    if (params.page === state.page && state.jobs.length > 0) {
+    if (
+      params.page === state.page &&
+      !params.reload &&
+      !params.location &&
+      state.jobs.length > 0
+    ) {
       return state.jobs;
     }
     return JobService.getJobs(params)
       .then(response => {
         commit("SET_JOBS", response.data);
         commit("SET_PAGE", params.page);
-        params.page = params.page + 1;
-        JobService.getJobs(params).then(response => {
-          commit("SET_HAS_NEXT", response.data.length);
-        });
+        if (state.jobs.length < 50) {
+          commit("SET_HAS_NEXT", false);
+        } else {
+          commit("SET_HAS_NEXT", true);
+        }
       })
       .catch(error => {
         alert("There was a problem fetching jobs: " + error.message);
@@ -56,6 +67,9 @@ export const actions = {
           alert("There was a problem fetching job: " + error.message);
         });
     }
+  },
+  setFullOnly: function({ commit }, isFull) {
+    commit("SET_FULL_ONLY", isFull);
   }
 };
 
@@ -64,6 +78,6 @@ export const getters = {
     return state.jobs.find(job => job.id === id);
   },
   hasNext: state => {
-    return state.hasNext !== 0;
+    return state.hasNext;
   }
 };

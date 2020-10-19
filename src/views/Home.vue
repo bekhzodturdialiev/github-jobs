@@ -4,12 +4,10 @@
     <GlobalSearch></GlobalSearch>
     <main class="main">
       <MainSidebar></MainSidebar>
-      <section>
-        <div class="job-cards">
-          <JobCard v-for="job in job.jobs" :key="job.id" :job="job" />
-        </div>
+      <div class="job-cards">
+        <JobCard v-for="job in job.jobs" :key="job.id" :job="job" />
         <Pagination :page="page" />
-      </section>
+      </div>
     </main>
   </div>
 </template>
@@ -66,14 +64,33 @@ export default {
 </script>
 
 <style lang="scss">
+.home {
+  margin: 0 15px;
+}
 .main {
   margin: 33px 0 151px;
   display: flex;
-  section {
-    margin: 0 0 0 32px;
+
+  @media (max-width: 767px) {
+    & {
+      flex-direction: column;
+      margin: 25px 0;
+    }
   }
 }
 .job-cards {
-  width: 766px;
+  width: calc(75% - 32px);
+  margin: 0 0 0 32px;
+  @media (max-width: 767px) {
+    & {
+      width: 100%;
+      margin: 9px 0 0 0;
+    }
+  }
 }
+// @media (max-width: 1200px) {
+//   .job-cards {
+//     width: 766px;
+//   }
+// }
 </style>
