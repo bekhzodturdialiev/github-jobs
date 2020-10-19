@@ -1,8 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import JobShow from "../views/JobShow.vue";
-import store from "../store";
+import Home from "@/views/Home.vue";
+import JobShow from "@/views/JobShow.vue";
+import store from "@/store";
 import nProgress from "nprogress";
 
 Vue.use(VueRouter);
