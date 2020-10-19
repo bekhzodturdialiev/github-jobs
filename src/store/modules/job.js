@@ -4,12 +4,9 @@ export const namespaced = true;
 
 export const state = {
   jobs: [],
-  jobsTotal: 0,
   job: {},
   hasNext: false,
-  page: 1,
-  city: "",
-  fullOnly: false
+  page: 1
 };
 export const mutations = {
   SET_JOBS(state, jobs) {
@@ -23,9 +20,6 @@ export const mutations = {
   },
   SET_PAGE(state, page) {
     state.page = page;
-  },
-  SET_FULL_ONLY(state, isFull) {
-    state.fullOnly = isFull;
   }
 };
 export const actions = {
@@ -67,9 +61,6 @@ export const actions = {
           alert("There was a problem fetching job: " + error.message);
         });
     }
-  },
-  setFullOnly: function({ commit }, isFull) {
-    commit("SET_FULL_ONLY", isFull);
   }
 };
 
