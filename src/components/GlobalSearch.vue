@@ -1,6 +1,6 @@
 <template>
   <article class="global-search">
-    <form class="global-search-form">
+    <form class="global-search-form" @submit.prevent="processSearch">
       <label>
         <i class="material-icons global-search-form__icon">work</i>
         <input

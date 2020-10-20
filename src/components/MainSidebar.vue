@@ -4,7 +4,7 @@
       >Full stack</CheckBox
     >
     <h2 class="sidebar-title">Location</h2>
-    <form class="sidebar-search">
+    <form class="sidebar-search" @submit.prevent="processSearchImmediate">
       <label>
         <i class="material-icons sidebar-search__icon">public</i>
         <input
@@ -53,6 +53,11 @@ export default {
           params: this.params
         });
       }, 800);
+    },
+    processSearchImmediate() {
+      store.dispatch("job/fetchJobs", {
+        params: this.params
+      });
     }
   }
 };
