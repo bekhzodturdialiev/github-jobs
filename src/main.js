@@ -5,10 +5,10 @@ import store from "./store";
 import "normalize.css";
 import "nprogress/nprogress.css";
 import "./assets/css/main.css";
-import imageLoader from "./directives/imageLoader";
+import ImageLoader from "./directives/ImageLoader";
 
 Vue.config.productionTip = false;
-Vue.directive("image-loader", imageLoader);
+Vue.directive("image-loader", ImageLoader);
 
 new Vue({
   router,

@@ -4,7 +4,7 @@
       >Full stack</CheckBox
     >
     <h2 class="sidebar-title">Location</h2>
-    <form class="sidebar-search" @submit.prevent="processSearchImmediate">
+    <form class="sidebar-search" @submit.prevent="processSearch(0)">
       <label>
         <i class="material-icons sidebar-search__icon">public</i>
         <input
@@ -12,7 +12,7 @@
           type="text"
           placeholder="City, state, zip code or country"
           v-model="params.location"
-          @input="processSearch"
+          @input="processSearch(800)"
         />
       </label>
     </form>
@@ -29,6 +29,7 @@
 
 <script>
 import CheckBox from "@/components/CheckBox.vue";
+import UtilMixin from "@/mixins/UtilMixin.js";
 
 import store from "@/store";
 
@@ -37,27 +38,19 @@ export default {
   components: {
     CheckBox
   },
+  mixins: [UtilMixin],
   data: function() {
     return {
       params: {}
     };
   },
   methods: {
-    processSearch() {
-      if (this.timer) {
-        clearTimeout(this.timer);
-        this.timer = null;
-      }
-      this.timer = setTimeout(() => {
+    processSearch(delay) {
+      this.debounce(() => {
         store.dispatch("job/fetchJobs", {
           params: this.params
         });
-      }, 800);
-    },
-    processSearchImmediate() {
-      store.dispatch("job/fetchJobs", {
-        params: this.params
-      });
+      }, delay);
     }
   }
 };
