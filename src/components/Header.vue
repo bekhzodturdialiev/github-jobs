@@ -1,6 +1,10 @@
 <template>
   <header class="header">
-    <h1 class="logo_title"><span class="logo_title-bold">github</span> jobs</h1>
+    <router-link :to="{ name: 'Home' }">
+      <h1 class="logo_title">
+        <span class="logo_title-bold">github</span> jobs
+      </h1>
+    </router-link>
   </header>
 </template>
 

@@ -17,15 +17,12 @@
           </p>
           <div class="job-card job-block-card">
             <img
-              class="job-card__image job-block-image"
-              :src="
-                job.company_logo ||
-                  'http://www.noemiaalugueis.com.br/assets/images/no-image.png'
-              "
-              alt="Company
-    Image"
+              class="job-block-image"
+              v-image-loader
+              :src="job.company_logo"
+              alt="Company Image"
             />
-            <div>
+            <div class="job-card__header">
               <h4 class="job-card__company-name">{{ job.company }}</h4>
               <p class="job-card__city">
                 <i class="material-icons job-card__city-icon">public</i>
@@ -43,8 +40,14 @@
 <script>
 import InfoSidebar from "@/components/InfoSidebar.vue";
 import Header from "@/components/Header.vue";
+import noImage from "@/assets/images/no-image.png";
 const now = new Date();
 export default {
+  data() {
+    return {
+      noImage: noImage
+    };
+  },
   props: {
     job: {
       type: Object,
@@ -64,6 +67,9 @@ export default {
         return "today";
       }
       return daysPast + (daysPast === 1 ? " day ago" : " days ago");
+    },
+    companyLogo() {
+      return this.job.company_logo || this.noImage;
     }
   }
 };
@@ -74,7 +80,7 @@ export default {
   margin: 0 15px;
 }
 .job-block-image {
-  width: 42px;
+  width: 90px;
 }
 .job-block {
   margin-left: 78px;
@@ -133,10 +139,9 @@ export default {
   margin: 32px 0;
   background: transparent;
   box-shadow: none;
-  @media (max-width: 767px) {
-    & {
-      padding: 0;
-    }
-  }
+  padding: 0;
+}
+.job-card__header {
+  margin-left: 12px;
 }
 </style>

@@ -4,7 +4,8 @@
       <div class="job-card">
         <img
           class="job-card__image"
-          :src="job.company_logo || noImage"
+          v-image-loader
+          :src="job.company_logo"
           alt="Company
     Image"
         />
@@ -35,16 +36,10 @@
 </template>
 
 <script>
-import noImage from "@/assets/images/no-image.png";
 const now = new Date();
 
 export default {
   name: "JobCard",
-  data() {
-    return {
-      noImage: noImage
-    };
-  },
   props: {
     job: {
       type: Object,
